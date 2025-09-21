@@ -1,0 +1,145 @@
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+        }
+        .login-container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.1);
+            overflow: hidden;
+            border: 1px solid #495057;
+        }
+        .login-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        .login-header h2 {
+            margin: 0;
+            font-weight: 300;
+            font-size: 2.5rem;
+        }
+        .login-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .login-form {
+            padding: 40px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #f8f9fa;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            border: 2px solid #495057;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #2d2d2d;
+            color: white;
+        }
+        .form-control:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 0.2rem rgba(30, 64, 175, 0.25);
+            background-color: #2d2d2d;
+            color: white;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.4);
+            color: white;
+        }
+        .form-check-input:checked {
+            background-color: #1e40af;
+            border-color: #1e40af;
+        }
+        .form-check-input:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 0.2rem rgba(30, 64, 175, 0.25);
+        }
+        .form-check-label {
+            color: #f8f9fa;
+        }
+        .forgot-password {
+            text-align: center;
+            margin: 20px 0;
+            color: #f8f9fa;
+        }
+        .forgot-password a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #f8f9fa;
+        }
+        .signup-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+        .input-group-text {
+            background-color: #2d2d2d;
+            border: 2px solid #495057;
+            border-right: none;
+            color: white;
+        }
+        .password-toggle {
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+        .password-toggle:hover {
+            color: #3b82f6;
+        }
+   

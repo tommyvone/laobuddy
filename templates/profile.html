@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar" id="avatarDisplay">
+                    👤
+                </div>
+                <h1 class="profile-name" id="fullName">John Doe</h1>
+                <p class="profile-username" id="usernameDisplay">@johndoe</p>
+                <div class="member-since">Member since September 2025</div>
+            </div>
+            
+            <div class="profile-content">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">First Name</span>
+                        <span class="info-value" id="firstNameDisplay">John</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Name</span>
+                        <span class="info-value" id="lastNameDisplay">Doe</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="emailDisplay">john.doe@example.com</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Username</span>
+                        <span class="info-value" id="usernameInfo">johndoe</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Birthday</span>
+                        <span class="info-value" id="birthdayDisplay">January 15, 1990</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Gender</span>
+                        <span class="info-value gender-display" id="genderDisplay">male</span>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Location</h2>
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">Country</span>
+                        <span class="info-value" id="countryDisplay">United States</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">City</span>
+                        <span class="info-value" id="cityDisplay">New York</span>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Account Status</h2>
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">Status</span>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Login</span>
+                        <span class="info-value" id="lastLoginDisplay">Today at 3:30 PM</span>
+                    </div>
+                </div>
+
+                <div class="actions-section">
+                    <button type="button" class="btn btn-edit" onclick="editProfile()">Edit Profile</button>
+                    <button type="button" class="btn btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Function to load user data (in a real app, this would come from the server)
+        function loadUserData() {
+            // Check if we have user data in localStorage (from signup/login)
+            const userData = localStorage.getItem('currentUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                updateProfileDisplay(user);
+            } else {
+                // Default demo data if no user data is available
+                const demoUser = {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    username: 'johndoe',
+                    email: 'john.doe@example.com',
+                    birthday: '1990-01-15',
+                    gender: 'male',
+                    country: 'US',
+                    city: 'New York'
+                };
+                updateProfileDisplay(demoUser);
+            }
+        }
+
+        // Function to update the profile display with user data
+        function updateProfileDisplay(user) {
+            document.getElementById('fullName').textContent = `${user.firstName} ${user.lastName}`;
+            document.getElementById('usernameDisplay').textContent = `@${user.username}`;
+            document.getElementById('firstNameDisplay').textContent = user.firstName;
+            document.getElementById('lastNameDisplay').textContent = user.lastName;
+            document.getElementById('emailDisplay').textContent = user.email;
+            document.getElementById('usernameInfo').textContent = user.username;
+            document.getElementById('genderDisplay').textContent = user.gender;
+            document.getElementById('cityDisplay').textContent = user.city;
+            
+            // Format birthday
+            if (user.birthday) {
+                const date = new Date(user.birthday);
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('birthdayDisplay').textContent = date.toLocaleDateString('en-US', options);
+            }
+            
+            // Convert country code to full name (basic mapping)
+            const countryNames = {
+                'US': 'United States',
+                'CA': 'Canada',
+                'GB': 'United Kingdom',
+                'AU': 'Australia',
+                'DE': 'Germany',
+                'FR': 'France',
+                'IT': 'Italy',
+                'ES': 'Spain',
+                'NL': 'Netherlands',
+                'SE': 'Sweden',
+                'NO': 'Norway',
+                'DK': 'Denmark',
+                'FI': 'Finland',
+                'JP': 'Japan',
+                'KR': 'South Korea',
+                'CN': 'China',
+                'IN': 'India',
+                'BR': 'Brazil',
+                'MX': 'Mexico',
+                'AR': 'Argentina',
+                'CL': 'Chile',
+                'CO': 'Colombia',
+                'PE': 'Peru',
+                'ZA': 'South Africa',
+                'NG': 'Nigeria',
+                'EG': 'Egypt',
+                'KE': 'Kenya'
+            };
+            
+            const countryName = countryNames[user.country] || user.country;
+            document.getElementById('countryDisplay').textContent = countryName;
+            
+            // Update avatar with first letter of first name
+            const avatarLetter = user.firstName ? user.firstName.charAt(0).toUpperCase() : '👤';
+            document.getElementById('avatarDisplay').textContent = avatarLetter;
+            
+            // Update last login to current time
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            document.getElementById('lastLoginDisplay').textContent = `Today at ${timeString}`;
+        }
+
+        // Function to edit profile (placeholder)
+        function editProfile() {
+            alert('Edit profile functionality would redirect to an edit form in a real application.');
+        }
+
+        // Function to logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear user data
+                localStorage.removeItem('currentUser');
+                // Redirect to login page
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Load user data when page loads
+        document.addEventListener('DOMContentLoaded', loadUserData);
+    </script>
+</body>
+</html>

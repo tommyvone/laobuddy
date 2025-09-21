@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Sign Up</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="signup-header">
+                <h2>Join Our Community</h2>
+                <p>Create your member account today</p>
+            </div>
+            
+            <div class="signup-form">
+                <form id="signupForm" method="POST" action="/signup">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="birthday" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" name="country" required>
+                                <option value="">Select your country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="IT">Italy</option>
+                                <option value="ES">Spain</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="SE">Sweden</option>
+                                <option value="NO">Norway</option>
+                                <option value="DK">Denmark</option>
+                                <option value="FI">Finland</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <option value="CN">China</option>
+                                <option value="IN">India</option>
+                                <option value="BR">Brazil</option>
+                                <option value="MX">Mexico</option>
+                                <option value="AR">Argentina</option>
+                                <option value="CL">Chile</option>
+                                <option value="CO">Colombia</option>
+                                <option value="PE">Peru</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="EG">Egypt</option>
+                                <option value="KE">Kenya</option>
+                                <option value="LA">Laos</option>
+                                <option value="TH">Thai</option>
+                                <option value="other">Other</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-signup">Create Account</button>
+                </form>
+                
+                <div class="login-link">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for form validation -->
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Simple validation
+            let isValid = true;
+            let errorMessage = '';
+            
+            // Check if all required fields are filled
+            const requiredFields = ['firstName', 'lastName', 'username', 'email', 'birthday', 'gender', 'country', 'city'];
+            for (let field of requiredFields) {
+                if (!formObject[field]) {
+                    isValid = false;
+                    errorMessage = `Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`;
+                    break;
+                }
+            }
+            
+            // Email validation
+            if (isValid && formObject.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formObject.email)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address.';
+                }
+            }
+            
+            // Username validation (minimum length)
+            if (isValid && formObject.username && formObject.username.length < 3) {
+                isValid = false;
+                errorMessage = 'Username must be at least 3 characters long.';
+            }
+            
+            if (isValid) {
+                // Show success message (in a real app, this would submit to server)
+                alert('Account created successfully! Welcome to our community!');
+                console.log('Form data:', formObject);
+            } else {
+                alert(errorMessage);
+            }
+        });
+    </script>
+</body>
+</html>
