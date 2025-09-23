@@ -116,15 +116,7 @@
     
     <!-- Custom JavaScript for form validation -->
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
+        
             
             // Simple validation
             let isValid = true;
@@ -157,7 +149,7 @@
             
             if (isValid) {
                 // Show success message (in a real app, this would submit to server)
-                alert('Account created successfully! Welcome to our community!');
+                alert('Account created successfully! Welcome to our laobuddy!');
                 console.log('Form data:', formObject);
             } else {
                 alert(errorMessage);
