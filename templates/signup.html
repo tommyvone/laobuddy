@@ -40,11 +40,19 @@
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="birthday" class="form-label">Birthday</label>
-                        <input type="date" class="form-control" id="birthday" name="birthday" required>
+                  
+                     <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required minlength="6">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        <div id="passwordError" style="color: red; display: none; font-weight: bold;"></div>
+
+                    </div>
+
                     
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
@@ -117,13 +125,26 @@
     <!-- Custom JavaScript for form validation -->
     <script>
         
+                document.getElementById('signupForm').addEventListener('submit', function(event) {
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+
+                    if (password !== confirmPassword) {
+                        event.preventDefault(); // Stop form submission
+                        alert('Passwords do not match. Please try again');
+                    }
+                });
+
+
+
+
             
             // Simple validation
             let isValid = true;
             let errorMessage = '';
             
             // Check if all required fields are filled
-            const requiredFields = ['firstName', 'lastName', 'username', 'email', 'birthday', 'gender', 'country', 'city'];
+            const requiredFields = ['firstName', 'lastName', 'username', 'email',  'gender', 'country', 'city'];
             for (let field of requiredFields) {
                 if (!formObject[field]) {
                     isValid = false;
