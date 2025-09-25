@@ -14,7 +14,7 @@
     <div class="container">
         <div class="profile-container">
             <div class="profile-header">
-                <h1 class="profile-name" >{% for user in users %}{{user.first_name }}{% endfor %}</h1>
+                <h1 class="profile-name" >{% for user in users %}{{user.username}}{% endfor %}</h1>
                 <p class="profile-username" id="usernameDisplay">@johndoe</p>
                 <div class="member-since">Member since September 2025</div>        
             <div class="profile-content">
@@ -22,15 +22,15 @@
                 <div class="info-card">
                     <div class="info-row">
                         <span class="info-label">First Name</span>
-                        <span class="info-value" id="firstNameDisplay">John</span>
+                        <span class="info-value" id="firstNameDisplay">{% for user in users %}{{user.first_name }}{% endfor %}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Last Name</span>
-                        <span class="info-value" id="lastNameDisplay">Doe</span>
+                        <span class="info-value" id="lastNameDisplay">{% for user in users %}{{user.last_name }}{% endfor %}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Email</span>
-                        <span class="info-value" id="emailDisplay">john.doe@example.com</span>
+                        <span class="info-value" id="emailDisplay">{% for user in users %}{{user.email }}{% endfor %}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Username</span>
@@ -50,11 +50,11 @@
                 <div class="info-card">
                     <div class="info-row">
                         <span class="info-label">Country</span>
-                        <span class="info-value" id="countryDisplay">United States</span>
+                        <span class="info-value" id="countryDisplay">{% for user in users %}{{user.country }}{% endfor %}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">City</span>
-                        <span class="info-value" id="cityDisplay">New York</span>
+                        <span class="info-value" id="cityDisplay">{% for user in users %}{{user.city }}{% endfor %}</span>
                     </div>
                 </div>
 
