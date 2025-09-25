@@ -29,7 +29,7 @@ def signup():
     last_name = request.form.get('lastName')
     username = request.form.get('username')
     email = request.form.get('email')
-    password = request.form.get('password')  # In production, hash this!
+    password = request.form.get('password')  
     gender = request.form.get('gender')
     country = request.form.get('country')
     city = request.form.get('city')
