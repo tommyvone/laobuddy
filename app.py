@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -6,6 +7,7 @@ app = Flask(__name__)
 #PostgreSQL connection strin
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://laobuddy:Lisa243414133@localhost/laobuddy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
 
@@ -14,7 +16,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/signup')
+@app.route('/signup',methods= ['GET','POST'])
 def signup():
     return render_template('signup.html')
 
