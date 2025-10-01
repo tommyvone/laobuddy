@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, redirect, render_template
+from model import db, Member  
+
+
 
 
 app = Flask(__name__)
@@ -7,19 +9,14 @@ app = Flask(__name__)
 #PostgreSQL connection strin
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://laobuddy:Lisa243414133@localhost/laobuddy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+# Initialize SQLAlchemy with app
+db.init_app(app)
 
 
 
 @app.route('/')
 def home():
     return render_template('home.html')
-
-
-@app.route('/signup',methods= ['GET','POST'])
-def signup():
-    return render_template('signup.html')
-
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
@@ -29,4 +26,28 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/signup', methods=['GET'])
+def show_signup_form():
+    return render_template('signup.html')
+
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    member = Member(
+        first_name=request.form.get('firstName'),
+        last_name=request.form.get('lastName'),
+        username=request.form.get('username'),
+        email=request.form.get('email'),
+        password=request.form.get('password'),
+        gender=request.form.get('gender'),
+        country=request.form.get('country'),
+        city=request.form.get('city')
+    )
+    db.session.add(member)
+    db.session.commit()
+    return render_template('success.html')
+
+@app.route('/success')
+def success():
+    return render_template('success.html')
 
