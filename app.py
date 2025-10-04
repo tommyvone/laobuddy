@@ -47,7 +47,7 @@ def signup():
         username = request.form['username']
 
         # Check if email already exists
-        existing_user = Member.query.filter_by(email=email,username=username).first()
+        existing_user = Member.query.filter_by(email=email,func.lower(Member.username) ==username).first()
         if existing_user:
             flash('Email already registered and username. Please log in or use a different email and username.')
             return render_template('signup.html')
