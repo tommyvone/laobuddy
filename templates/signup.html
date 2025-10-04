@@ -16,6 +16,15 @@
             <div class="signup-header">
                 <h2>Join Our Community</h2>
                 <p>Create your member account today</p>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class="flashes">
+                      {% for message in messages %}
+                        <li class="flask-message">{{ message }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
             </div>
             
             <div class="signup-form">

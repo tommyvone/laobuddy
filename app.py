@@ -1,10 +1,12 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 from model import db, Member  
 
 
 
 
 app = Flask(__name__)
+app.secret_key = 's3cr3t_k3y_987654321'
+
 
 #PostgreSQL connection strin
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://laobuddy:Lisa243414133@localhost/laobuddy'
@@ -38,20 +40,18 @@ def show_signup_form():
     
 
 
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST','GET'])
 def signup():
-    
-    username = request.form.get('username')
-    email = request.form.get('email')
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
 
-    # check if username or email already exists
-    existin_user = Member.query.filter(
-        (Member.username == username) | (Member.email == email)).first()
-    if existin_user:
-        error = "Username or email already exists. Please choose another."
-        return render_template('signup.html',error=error)
+        # Check if email already exists
+        existing_user = Member.query.filter_by(email=email,username=username).first()
+        if existing_user:
+            flash('Email already registered and username. Please log in or use a different email and username.')
+            return render_template('signup.html')
 
-    # Proceed with creating the new membeer
     member = Member(
         first_name=request.form.get('firstName'),
         last_name=request.form.get('lastName'),
@@ -63,11 +63,7 @@ def signup():
         city=request.form.get('city')
     )
    
-        db.session.add(member)
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-        print("Error:", e)
-        return render_template('signup.html', error="Something went wrong.")
-
+    db.session.add(member)
+    db.session.commit()
+    return render_template('success.html')
 
