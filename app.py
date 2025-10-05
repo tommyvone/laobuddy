@@ -52,7 +52,7 @@ def signup():
             (Member.email == email) &
             (func.lower(Member.username) == username.lower())).first()
         if existing_user:
-            flash('Email or username already exists.')
+            flash('Email and  username already exists.')
             return render_template('signup.html')
 
     member = Member(
