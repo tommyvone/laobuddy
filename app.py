@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, flash
 from model import db, Member  
+from sqlalchemy import func
 
 
 
@@ -46,10 +47,12 @@ def signup():
         email = request.form['email']
         username = request.form['username']
 
-        # Check if email already exists
-        existing_user = Member.query.filter_by(email=email,func.lower(Member.username) ==username).first()
+        # Check if email, username already exists
+        existing_user = Member.query.filter(
+            (Member.email == email) &
+            (func.lower(Member.username) == username.lower())).first()
         if existing_user:
-            flash('Email already registered and username. Please log in or use a different email and username.')
+            flash('Email or username already exists.')
             return render_template('signup.html')
 
     member = Member(

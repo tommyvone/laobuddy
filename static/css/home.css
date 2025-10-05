@@ -20,4 +20,5 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(30, 64, 175, 0.4);
             color: white;
+            list-style-type: none;
         }
