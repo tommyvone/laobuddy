@@ -26,6 +26,15 @@
                 
                 <div class="error-message" id="errorMessage">
                     <strong>Error!</strong> <span id="errorText"></span>
+                    {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class="flashes">
+                      {% for message in messages %}
+                        <li class="flask-message">{{ message }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
                 </div>
                 
                 <form id="loginForm" method="POST" action="/login">
@@ -66,88 +75,6 @@
     </div>
     <!-- Custom JavaScript -->
     <script>
-        // Toggle password visibility
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const passwordIcon = document.getElementById('passwordIcon');
-            
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordIcon.textContent = '';
-            } else {
-                passwordField.type = 'password';
-                passwordIcon.textContent = '';
-            }
-        }
-        
-        // Form submission handler
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Hide previous messages
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            
-            // Get form data
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            
-            // Simple validation
-            let isValid = true;
-            let errorMessage = '';
-            
-            // Check if required fields are filled
-            if (!formObject.emailOrUsername) {
-                isValid = false;
-                errorMessage = 'Please enter your email or username.';
-            } else if (!formObject.password) {
-                isValid = false;
-                errorMessage = 'Please enter your password.';
-            } else if (formObject.password.length < 6) {
-                isValid = false;
-                errorMessage = 'Password must be at least 6 characters long.';
-            }
-            
-            // Email validation if it looks like an email
-            if (isValid && formObject.emailOrUsername.includes('@')) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(formObject.emailOrUsername)) {
-                    isValid = false;
-                    errorMessage = 'Please enter a valid email address.';
-                }
-            }
-            
-            if (isValid) {
-                // Simulate successful login
-                document.getElementById('successMessage').style.display = 'block';
-                console.log('Login data:', formObject);
-                
-                // Store user data for the profile page
-                const userData = {
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    username: formObject.emailOrUsername.includes('@') ? formObject.emailOrUsername.split('@')[0] : formObject.emailOrUsername,
-                    email: formObject.emailOrUsername.includes('@') ? formObject.emailOrUsername : 'user@example.com',
-                    birthday: '1990-01-15',
-                    gender: 'male',
-                    country: 'US',
-                    city: 'New York'
-                };
-                localStorage.setItem('currentUser', JSON.stringify(userData));
-                
-                // Redirect to profile page after successful login
-                setTimeout(() => {
-                    window.location.href = 'profile.html';
-                }, 1500);
-            } else {
-                // Show error message
-                document.getElementById('errorText').textContent = errorMessage;
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        });
         
         // Add real-time validation feedback
         const inputs = document.querySelectorAll('input[required]');
@@ -167,7 +94,7 @@
                     this.classList.add('is-valid');
                 }
             });
-        });
+     
         
         // Auto-focus on first input
         document.getElementById('emailOrUsername').focus();

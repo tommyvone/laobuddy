@@ -14,27 +14,27 @@
     <div class="container">
         <div class="profile-container">
             <div class="profile-header">
-                <h1 class="profile-name">Vone</h1>
-                <p class="profile-username" id="usernameDisplay">@johndoe</p>
+                <h1 class="profile-name">Laobuddy</h1>
+                <p class="profile-username" id="usernameDisplay">{{ user.username }}</p>
                 <div class="member-since">Member since September 2025</div>        
             <div class="profile-content">
                 <h2 class="section-title">Personal Information</h2>
                 <div class="info-card">
                     <div class="info-row">
                         <span class="info-label">First Name</span>
-                        <span class="info-value" id="firstNameDisplay">FirstName</span>
+                        <span class="info-value" id="firstNameDisplay">{{ user.first_name }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Last Name</span>
-                        <span class="info-value" id="lastNameDisplay">last_name</span>
+                        <span class="info-value" id="lastNameDisplay">{{ user.last_name}}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Email</span>
-                        <span class="info-value" id="emailDisplay">user.email</span>
+                        <span class="info-value" id="emailDisplay">{{ user.email }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Username</span>
-                        <span class="info-value" id="usernameInfo">johndoe</span>
+                        <span class="info-value" id="usernameInfo">{{ user.username }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Birthday</span>
@@ -50,11 +50,11 @@
                 <div class="info-card">
                     <div class="info-row">
                         <span class="info-label">Country</span>
-                        <span class="info-value" id="countryDisplay">country</span>
+                        <span class="info-value" id="countryDisplay">{{ user.country }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">City</span>
-                        <span class="info-value" id="cityDisplay">city</span>
+                        <span class="info-value" id="cityDisplay">{{ user.city }}</span>
                     </div>
                 </div>
 

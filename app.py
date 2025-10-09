@@ -1,6 +1,7 @@
-from flask import Flask, request, redirect, render_template, flash
+from flask import Flask, request, redirect, render_template, flash, session
 from model import db, Sember  
 from sqlalchemy import func
+
 
 
 
@@ -25,13 +26,34 @@ def home():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('Please log in first')
+        return redirect('/login')
+    
+    user = Sember.query.get(user_id)
+    return render_template('profile.html', user=user)
 
 
 
-@app.route('/login')
+
+@app.route('/login', methods=['POST','GET'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        identifier = request.form.get('emailOrUsername')
+        password = request.form.get('password')
+        user = Sember.query.filter((
+            Sember.email == identifier) | (Sember.username == identifier)).first()
+        if user and user.password == password:
+            session['user_id'] = user.id
+            return redirect('/profile')
+        else:
+            flash('Wrong password or email Please check')
+            return render_template('login.html')
+    else:
+        return render_template('login.html')
+
+
 
 
 
