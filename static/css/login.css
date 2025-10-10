@@ -142,4 +142,9 @@
         .password-toggle:hover {
             color: #3b82f6;
         }
-   
+        .flash-messages {
+            list-style-type: none;
+            color: red;
+
+
+        }
