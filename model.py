@@ -1,8 +1,12 @@
-# model.py
+
+# Import SQLAlchemy for database modeling
 from flask_sqlalchemy import SQLAlchemy
 
+# Initialize the SQLAlchemy database instance
 db = SQLAlchemy()
-class Sember(db.Model):
+
+# Define the Sember model, which maps to the 'members' table in the database
+class member(db.Model):
     __tablename__ = 'members'
 
     id = db.Column(db.Integer, primary_key=True)

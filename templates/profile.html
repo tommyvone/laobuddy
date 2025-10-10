@@ -72,7 +72,7 @@
 
                 <div class="actions-section">
                     <button type="button" class="btn btn-edit" onclick="editProfile()">Edit Profile</button>
-                    <button type="button" class="btn btn-logout" onclick="logout()">Logout</button>
+                    <a href="{{ url_for('logout') }}">Logout</a></button>
                 </div>
             </div>
         </div>
@@ -177,15 +177,7 @@
             alert('Edit profile functionality would redirect to an edit form in a real application.');
         }
 
-        // Function to logout
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Clear user data
-                localStorage.removeItem('currentUser');
-                // Redirect to login page
-                window.location.href = 'login.html';
-            }
-        }
+        
 
         // Load user data when page loads
         document.addEventListener('DOMContentLoaded', loadUserData);
