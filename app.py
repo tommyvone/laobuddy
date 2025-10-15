@@ -88,7 +88,7 @@ def signup():
             return render_template('signup.html')
 
     # Create new user with form info
-    member = member(
+    new_user = member(
         first_name=request.form.get('firstName'),
         last_name=request.form.get('lastName'),
         username=request.form.get('username'),
@@ -99,6 +99,70 @@ def signup():
         city=request.form.get('city')
     )
    
-    db.session.add(member)  # Add new user to database
+    db.session.add(new_user)  # Add new user to database
     db.session.commit()  # Save changes
     return render_template('success.html')  # Show success page after signup
+
+
+
+
+# Route to handle inline profile update form submission
+@app.route('/update-profile', methods=['POST'])
+def update_profile_inline():
+    # Get the logged-in user's ID from the session
+    user_id = session.get('user_id')
+
+    # If no user is logged in, redirect to login page with a message
+    if not user_id:
+        flash('Please log in first')  # Show alert message
+        return redirect('/login')     # Redirect to login page
+
+    # Fetch the user record from the database using the session ID
+    user = member.query.get(user_id)
+
+    # If the user exists, update their profile fields
+    if user:
+        # Update each field with the corresponding form input
+        user.first_name = request.form.get('firstName')
+        user.last_name = request.form.get('lastName')
+        user.username = request.form.get('username')
+        user.email = request.form.get('email')
+        user.gender = request.form.get('gender')
+        user.country = request.form.get('country')
+        user.city = request.form.get('city')
+
+        # If a new password is provided, update it
+        new_password = request.form.get('password')
+        if new_password:
+            user.password = new_password  # ⚠️ In production, hash the password before saving
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        # Show success message and redirect to profile page
+        flash('Profile updated successfully')
+        return redirect('/profile')
+    
+    else:
+        # If user not found, show error and redirect to login
+        flash('User not found')
+        return redirect('/login')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
