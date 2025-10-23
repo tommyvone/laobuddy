@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+</head>
+<body>
+
+  <button type="button" class="btn btn-edit" onclick="showFormLine()">Edit Profile</button>
+
+  <div id="formContainer"></div>
+
+  <script>
+    function showFormLine() {
+      document.getElementById("formContainer").innerHTML =
+        '<form id="hiddenContent" method="POST" action="/update-profile" class="mt-4">' +
+        '<input type="text" name="username" placeholder="Enter your username" />' +
+        '<input type="submit" value="Update Profile" />' +
+        '</form>';
+    }
+  </script>
+
+</body>
+</html>

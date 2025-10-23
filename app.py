@@ -148,6 +148,16 @@ def update_profile_inline():
         flash('User not found')
         return redirect('/login')
 
+@app.route('/edit-profile')
+def edit_profile():
+    user_id = session.get('user_id')  # Get logged-in user's ID from session
+    if not user_id:
+        flash('Please log in first')
+        return redirect('/login')
+
+    user = member.query.get(user_id)  # Fetch user from database
+    return render_template('editprofile.html', user=user)
+
 
 
 
