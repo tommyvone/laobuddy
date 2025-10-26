@@ -139,5 +139,8 @@
             font-size: 14px;
             margin-top: 5px;
         }
-   
+        /* In your profile.css */
+.short-input {
+  width: 150px;
+}
 

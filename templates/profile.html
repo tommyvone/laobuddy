@@ -23,28 +23,36 @@
                 <div class="info-card">
                     <div class="info-row">
                         <span class="info-label">First Name</span>
-                        <span class="info-value" id="firstNameDisplay">{{ user.first_name }}</span>
+                        <input type="text" class="form-control short-input" name="firstName" value="{{ user.first_name }}" required>
+
                     </div>
                     <div class="info-row">
                         <span class="info-label">Last Name</span>
-                        <span class="info-value" id="lastNameDisplay">{{ user.last_name}}</span>
+                        <input type="text" class="form-control short-input" name="lastname" value="{{ user.last_name}}" required>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Email</span>
-                        <span class="info-value" id="emailDisplay">{{ user.email }}</span>
+                        <input type="text" class="form-control short-input" name="email" value="{{ user.email}}" required>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Username</span>
-                        <span class="info-value" id="usernameInfo">{{ user.username }}</span>
+                        <input type="text" class="form-control short-input" name="username" value="{{ user.username}}" required>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Birthday</span>
-                        <span class="info-value" id="birthdayDisplay">January 15, 1990</span>
+                        <input type="date" name="birthday" class="form-control short-input" value="{{ user.birthday}}" required>
+
                     </div>
+
                     <div class="info-row">
-                        <span class="info-label">Gender</span>
-                        <span class="info-value gender-display" id="genderDisplay">male</span>
+                      <label class="info-label" for="gender">Gender</label>
+                      <select class="form-control short-input" name="gender" id="gender" required>
+                        <option value="">Select gender</option>
+                        <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
+                        <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+                      </select>
                     </div>
+
                 </div>
 
                 <h2 class="section-title">Location</h2>

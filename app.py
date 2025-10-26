@@ -130,6 +130,17 @@ def update_profile_inline():
         user.gender = request.form.get('gender')
         user.country = request.form.get('country')
         user.city = request.form.get('city')
+        
+        # Convert birthday string to date object
+        birthday_str = request.form.get('birthday')
+        if birthday_str:
+            try:
+                user.birthday = datetime.strptime(birthday_str, '%Y-%m-%d').date()
+            except ValueError:
+                flash('Invalid birthday format. Please use YYYY-MM-DD.')
+                return redirect('/edit-profile')
+
+    
 
         # If a new password is provided, update it
         new_password = request.form.get('password')
@@ -157,7 +168,7 @@ def edit_profile():
 
     user = member.query.get(user_id)  # Fetch user from database
     return render_template('editprofile.html', user=user)
-
+    
 
 
 
