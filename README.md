@@ -200,4 +200,4 @@ If you encounter any issues or have questions:
 
 ---
 
-Made with ❤️ by the LaoBuddy team
+Made with ❤️ by Tommy Bountham
